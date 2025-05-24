@@ -111,9 +111,9 @@ class MentalHealthViewModel(
         }
     }
 
-    fun fetchActivity(type: String? = null, participants: Int? = null) {
+    fun fetchActivity() {
         viewModelScope.launch {
-            _activity.value = boredRepository.getActivity(type, participants)
+            _activity.value = boredRepository.getActivity()
         }
     }
 } 

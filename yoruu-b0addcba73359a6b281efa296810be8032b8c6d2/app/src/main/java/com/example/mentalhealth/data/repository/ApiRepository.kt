@@ -1,30 +1,42 @@
 package com.example.mentalhealth.data.repository
 
-import com.example.mentalhealth.data.api.ApiService
+import com.example.mentalhealth.data.api.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeoutOrNull
 
 class ApiRepository(private val apiService: ApiService) {
-    suspend fun getRandomQuote() = withContext(Dispatchers.IO) {
+    private val apiKey = "YOUR_API_NINJAS_KEY" // Replace with your actual API key
+
+    suspend fun getRandomQuote(): QuoteResponse? = withContext(Dispatchers.IO) {
         try {
-            apiService.getRandomQuote()
+            withTimeoutOrNull(5000) {
+                apiService.getRandomQuote()
+            }
         } catch (e: Exception) {
+            e.printStackTrace()
             null
         }
     }
 
-    suspend fun getAdvice() = withContext(Dispatchers.IO) {
+    suspend fun getAdvice(): AdviceResponse? = withContext(Dispatchers.IO) {
         try {
-            apiService.getAdvice()
+            withTimeoutOrNull(5000) {
+                apiService.getAdvice()
+            }
         } catch (e: Exception) {
+            e.printStackTrace()
             null
         }
     }
 
-    suspend fun getActivity(type: String? = null, participants: Int? = null) = withContext(Dispatchers.IO) {
+    suspend fun getActivity(): ActivityResponse? = withContext(Dispatchers.IO) {
         try {
-            apiService.getActivity(type, participants)
+            withTimeoutOrNull(5000) {
+                apiService.getActivity()
+            }
         } catch (e: Exception) {
+            e.printStackTrace()
             null
         }
     }
